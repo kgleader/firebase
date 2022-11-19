@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_app2/model/todo_model.dart';
+
+import '../model/todo_model.dart';
 
 class AddTodoPage extends StatefulWidget {
   const AddTodoPage({super.key});
@@ -64,15 +65,14 @@ class _AddTodoPageState extends State<AddTodoPage> {
               ),
               const SizedBox(height: 30),
               CheckboxListTile(
-                  title: const Text('Is completed'),
-                  value: _isCompleted,
-                  onChanged: (v) {
-                    setState(
-                      () {
-                        _isCompleted = v ?? false;
-                      },
-                    );
-                  }),
+                title: const Text('Is completed'),
+                value: _isCompleted,
+                onChanged: (v) {
+                  setState(() {
+                    _isCompleted = v ?? false;
+                  });
+                },
+              ),
               const SizedBox(height: 30),
               TextFormField(
                 controller: _author,
@@ -93,7 +93,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
                   if (_formKey.currentState!.validate()) {
                     showDialog(
                       context: context,
-                      builder: (context) {
+                      builder: (conbtext) {
                         return const CupertinoAlertDialog(
                           title: Text('Please waiting'),
                           content: Center(
@@ -109,12 +109,12 @@ class _AddTodoPageState extends State<AddTodoPage> {
                       },
                     );
                     await addTodo();
-                    //ignore: use_build_context_synchronously
+                    // ignore: use_build_context_synchronously
                     Navigator.popUntil(context, (route) => route.isFirst);
                   }
                 },
                 icon: const Icon(Icons.publish),
-                label: const Text('Add Todo'),
+                label: const Text('Add ToDo'),
               ),
             ],
           ),

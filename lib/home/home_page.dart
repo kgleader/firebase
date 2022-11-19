@@ -22,7 +22,20 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Stream<QuerySnapshot> readTodos() {
     final db = FirebaseFirestore.instance;
-    return db.collection('todo').snapshots();
+    return db.collection('todos').snapshots();
+  }
+
+  Future<void> updateTodo(Todo todo) async {
+    final db = FirebaseFirestore.instance;
+    await db
+        .collection('todos')
+        .doc(todo.id)
+        .update({'isCompleted': !todo.isCompleted});
+  }
+
+  Future<void> deleteTodo(Todo todo) async {
+    final db = FirebaseFirestore.instance;
+    await db.collection('todos').doc(todo.id).delete();
   }
 
   @override
